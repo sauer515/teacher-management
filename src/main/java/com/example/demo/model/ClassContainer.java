@@ -1,8 +1,20 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class ClassContainer {
+@Entity
+@Table(name = "groups_container")
+public class ClassContainer implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @MapKey(name = "groupName")
+    @JoinColumn(name = "container_id")
     private Map<String, ClassTeacher> groups;
 
     public ClassContainer() {

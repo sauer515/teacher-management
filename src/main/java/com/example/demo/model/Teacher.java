@@ -1,20 +1,31 @@
 package com.example.demo.model;
 
 import java.util.Objects;
+import jakarta.persistence.*;
+import java.io.Serializable;
 
-public class Teacher implements Comparable<Teacher> {
+@Entity
+@Table(name = "teachers")
+public class Teacher implements Comparable<Teacher>, Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "teacher_condition", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TeacherCondition condition;
+    @Column(name = "birth_year")
     private int birthYear;
+    @Column
     private double salary;
-    private static long nextId = 1;
 
+    public Teacher() {} //hibernate constructor
 
     public Teacher(String firstName, String lastName, TeacherCondition condition,
                    int birthYear, double salary) {
-        this.id = nextId++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.condition = condition;

@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.dao.*;
 import com.example.demo.model.ClassContainer;
 import com.example.demo.model.ClassTeacher;
 import com.example.demo.model.Teacher;
@@ -13,11 +14,29 @@ import java.util.Set;
 
 @Service
 public class TeacherService {
-    private final ClassContainer container;
+    private ClassContainer container;
+
+    private final TeacherDao teacherDao;
+    private final ClassTeacherDao classTeacherDao;
+    private final ClassContainerDao classContainerDao;
+
 
     public TeacherService() {
         this.container = new ClassContainer();
+        this.teacherDao = new TeacherDao();
+        this.classTeacherDao = new ClassTeacherDao();
+        this.classContainerDao = new ClassContainerDao();
+        LoadDataFromDatabase();
     }
+
+    private void LoadDataFromDatabase() {
+        ClassContainer dbContainer = classContainerDao.findAll().stream()
+                .findFirst()
+                .orElse(new ClassContainer());
+
+        this.container = dbContainer;
+    }
+
 
     public ResponseEntity<String> addTeacher(Teacher teacher, String groupName) {
         ClassTeacher group = container.getGroups().get(groupName);
@@ -93,7 +112,7 @@ public class TeacherService {
         return ResponseEntity.ok(result);
     }
 
-    public ResponseEntity<String> addRating(String groupId,
+    /*public ResponseEntity<String> addRating(String groupId,
                                             int rating) {
         ClassTeacher group = container.getGroups().get(groupId);
         if (group == null) {
@@ -101,5 +120,5 @@ public class TeacherService {
         }
         group.addRate(rating);
         return ResponseEntity.ok("Ocena dodana");
-    }
+    }*/
 }

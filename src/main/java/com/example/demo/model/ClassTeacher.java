@@ -1,21 +1,36 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class ClassTeacher {
+@Entity
+@Table(name = "teacher_groups")
+public class ClassTeacher implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String groupName;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
     private List<Teacher> teachers;
+
+    @Column(unique = true, nullable = false)
     private int maxTeachers;
-    private List<Integer> rates;
-    private static long nextId = 1;
+
+    //private List<Integer> rates;
+
+    public ClassTeacher() {}
 
     public ClassTeacher(String groupName, int maxTeachers) {
-        this.id = nextId++;
         this.groupName = groupName;
         this.maxTeachers = maxTeachers;
         this.teachers = new ArrayList<>();
-        this.rates = new ArrayList<>();
+        //this.rates = new ArrayList<>();
     }
 
     public void addTeacher(Teacher teacher) {
@@ -48,9 +63,9 @@ public class ClassTeacher {
                 .ifPresent(t -> t.setCondition(condition));
     }
 
-    public void addRate(int rate) {
-        rates.add(rate);
-    }
+    //public void addRate(int rate) {
+     //   rates.add(rate);
+    //}
 
     public Optional<Teacher> search(String lastName) {
         return teachers.stream()
@@ -95,13 +110,13 @@ public class ClassTeacher {
         return id;
     }
 
-    public List<Integer> getRates() {
-        return rates;
-    }
+    //public List<Integer> getRates() {
+      //  return rates;
+    //}
 
-    public void setRates(List<Integer> rates) {
-        this.rates = rates;
-    }
+    //public void setRates(List<Integer> rates) {
+    //    this.rates = rates;
+    //}
 
     public String getGroupName() {
         return groupName;
