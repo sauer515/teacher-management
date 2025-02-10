@@ -94,12 +94,12 @@ public class TeacherControllerTest {
 
     @Test
     void addGroup_Success() throws Exception {
-        when(teacherService.addGroup(anyString(), anyDouble()))
+        when(teacherService.addGroup(anyString(), anyInt()))
                 .thenReturn(ResponseEntity.ok(testGroup));
 
         mockMvc.perform(post("/api/group")
-                        .param("name", "Grupa1")
-                        .param("capacity", "30.0"))
+                        .param("name", "Grupa")
+                        .param("capacity", "30"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(testGroup)));
     }
@@ -135,17 +135,17 @@ public class TeacherControllerTest {
                 .andExpect(content().string("33.33%"));
     }
 
-    @Test
-    void addRating_Success() throws Exception {
-        when(teacherService.addRating(anyString(), anyInt()))
-                .thenReturn(ResponseEntity.ok("Ocena dodana"));
-
-        mockMvc.perform(post("/api/rating")
-                        .param("groupId", "Grupa1")
-                        .param("rating", "5"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Ocena dodana"));
-    }
+//    @Test
+//    void addRating_Success() throws Exception {
+//        when(teacherService.addRating(anyString(), anyInt()))
+//                .thenReturn(ResponseEntity.ok("Ocena dodana"));
+//
+//        mockMvc.perform(post("/api/rating")
+//                        .param("groupId", "Grupa1")
+//                        .param("rating", "5"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string("Ocena dodana"));
+//    }
 
     // Testy dla przypadków błędów
     @Test

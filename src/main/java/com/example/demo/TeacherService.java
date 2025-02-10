@@ -44,6 +44,8 @@ public class TeacherService {
             return ResponseEntity.notFound().build();
         }
         group.addTeacher(teacher);
+        teacherDao.save(teacher);
+        classTeacherDao.update(group);
         return ResponseEntity.ok("Nauczyciel dodany");
     }
 
@@ -56,6 +58,8 @@ public class TeacherService {
         Optional<Teacher> teacher = group.search(id);
         if (teacher.isPresent()) {
             group.removeTeacher(teacher.get());
+            teacherDao.delete(teacher.get());
+            classTeacherDao.update(group);
             return ResponseEntity.ok("Nauczyciel usunięty");
         }
         return ResponseEntity.notFound().build();
@@ -66,9 +70,11 @@ public class TeacherService {
     }
 
     public ResponseEntity<ClassTeacher> addGroup(String name,
-                                                 double capacity) {
+                                                 int capacity) {
         container.addClass(name, capacity);
         ClassTeacher group = container.getGroups().get(name);
+        classTeacherDao.save(group);
+        classContainerDao.update(container);
         return ResponseEntity.ok(group);
     }
 
@@ -91,6 +97,9 @@ public class TeacherService {
 
     public ResponseEntity<String> removeGroup(String id) {
         container.removeClass(id);
+        //classTeacherDao.delete(container.getGroups().get(id));
+        classContainerDao.update(container);
+
         return ResponseEntity.ok("Grupa usunięta");
     }
 

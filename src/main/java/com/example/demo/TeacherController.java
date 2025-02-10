@@ -41,7 +41,7 @@ public class TeacherController {
 
     @PostMapping("/group")
     public ResponseEntity<ClassTeacher> addGroup(@RequestParam String name,
-                                                 @RequestParam double capacity) {
+                                                 @RequestParam int capacity) {
         return teacherService.addGroup(name, capacity);
     }
 

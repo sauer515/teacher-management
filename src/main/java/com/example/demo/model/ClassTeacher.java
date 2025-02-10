@@ -19,7 +19,7 @@ public class ClassTeacher implements Serializable {
     @JoinColumn(name = "group_id")
     private List<Teacher> teachers;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private int maxTeachers;
 
     //private List<Integer> rates;

@@ -21,8 +21,12 @@ public class ClassContainer implements Serializable {
         this.groups = new HashMap<>();
     }
 
-    public void addClass(String name, double capacity) {
-        groups.put(name, new ClassTeacher(name, (int)capacity));
+    public void addClass(String name, int capacity) {
+        if (groups.containsKey(name)) {
+            System.out.println("Grupa o tej nazwie juz istnieje");
+            return;
+        }
+        groups.put(name, new ClassTeacher(name, capacity));
     }
 
     public void removeClass(String name) {
