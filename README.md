@@ -88,5 +88,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - JUnit 5 documentation
 - Mockito documentation
 ```
-
-Feel free to customize this `README.md` file according to your project's specific details and requirements.
