@@ -1,4 +1,4 @@
-```markdown
+
 # Teacher Management System
 
 This project is a Teacher Management System built with Java, Spring Boot, and Maven. It allows for managing teachers and their groups, including adding, removing, and searching for teachers, as well as managing group capacities and conditions.
@@ -32,7 +32,7 @@ This project is a Teacher Management System built with Java, Spring Boot, and Ma
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/teacher-management-system.git
+    git clone https://github.com/sauer515/teacher-management-system.git
     cd teacher-management-system
     ```
 
@@ -87,4 +87,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - JPA documentation
 - JUnit 5 documentation
 - Mockito documentation
-```
