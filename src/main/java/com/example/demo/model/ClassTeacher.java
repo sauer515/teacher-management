@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.exception.TeacherAlreadyExistsException;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -12,7 +13,7 @@ public class ClassTeacher implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String groupName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -22,7 +23,8 @@ public class ClassTeacher implements Serializable {
     @Column(nullable = false)
     private int maxTeachers;
 
-    //private List<Integer> rates;
+    @OneToMany(mappedBy = "classTeacher", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Rate> rates = new ArrayList<>();
 
     public ClassTeacher() {}
 
@@ -30,17 +32,15 @@ public class ClassTeacher implements Serializable {
         this.groupName = groupName;
         this.maxTeachers = maxTeachers;
         this.teachers = new ArrayList<>();
-        //this.rates = new ArrayList<>();
+        this.rates = new ArrayList<>();
     }
 
     public void addTeacher(Teacher teacher) {
         if (teachers.contains(teacher)) {
-            System.out.println("Nauczyciel już istnieje w grupie!");
-            return;
+            throw new TeacherAlreadyExistsException("Nauczyciel już istnieje w grupie!");
         }
         if (teachers.size() >= maxTeachers) {
-            System.out.println("Przekroczono maksymalną liczbę nauczycieli!");
-            return;
+            throw new TeacherAlreadyExistsException("Przekroczono maksymalną liczbę nauczycieli!");
         }
         teachers.add(teacher);
     }
@@ -63,9 +63,9 @@ public class ClassTeacher implements Serializable {
                 .ifPresent(t -> t.setCondition(condition));
     }
 
-    //public void addRate(int rate) {
-     //   rates.add(rate);
-    //}
+    public void addRate(int rate) {
+        rates.add(new Rate(rate, this));
+    }
 
     public Optional<Teacher> search(String lastName) {
         return teachers.stream()
@@ -131,6 +131,6 @@ public class ClassTeacher implements Serializable {
     }
 
     public List<Teacher> getTeachers() {
-        return new ArrayList<>(teachers);
+        return teachers;
     }
 }

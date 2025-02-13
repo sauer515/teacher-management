@@ -33,6 +33,6 @@
         <mapping class="com.example.demo.model.Teacher"/>
         <mapping class="com.example.demo.model.ClassTeacher"/>
         <mapping class="com.example.demo.model.ClassContainer"/>
-        <!-- <mapping class="org.example.zad_3.Rate"/> -->
+        <mapping class="com.example.demo.model.Rate"/>
     </session-factory>
 </hibernate-configuration>

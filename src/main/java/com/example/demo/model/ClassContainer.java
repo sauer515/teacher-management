@@ -50,4 +50,8 @@ public class ClassContainer implements Serializable {
     public Map<String, ClassTeacher> getGroups() {
         return new HashMap<>(groups);
     }
+
+    public ClassTeacher getGroup(String name) {
+        return groups.get(name);
+    }
 }

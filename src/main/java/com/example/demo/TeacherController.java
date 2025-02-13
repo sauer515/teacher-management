@@ -60,9 +60,9 @@ public class TeacherController {
         return teacherService.getGroupFillPercentage(id);
     }
 
-    /*@PostMapping("/rating")
+    @PostMapping("/rating")
     public ResponseEntity<String> addRating(@RequestParam String groupId,
                                             @RequestParam int rating) {
         return teacherService.addRating(groupId, rating);
-    }*/
+    }
 }

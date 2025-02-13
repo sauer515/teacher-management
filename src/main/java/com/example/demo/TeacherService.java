@@ -3,7 +3,9 @@ package com.example.demo;
 import com.example.demo.dao.*;
 import com.example.demo.model.ClassContainer;
 import com.example.demo.model.ClassTeacher;
+import com.example.demo.model.Rate;
 import com.example.demo.model.Teacher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class TeacherService {
     private final TeacherDao teacherDao;
     private final ClassTeacherDao classTeacherDao;
     private final ClassContainerDao classContainerDao;
+    private final RateDao rateDao;
 
 
     public TeacherService() {
@@ -26,6 +29,7 @@ public class TeacherService {
         this.teacherDao = new TeacherDao();
         this.classTeacherDao = new ClassTeacherDao();
         this.classContainerDao = new ClassContainerDao();
+        this.rateDao = new RateDao();
         LoadDataFromDatabase();
     }
 
@@ -96,10 +100,13 @@ public class TeacherService {
     }
 
     public ResponseEntity<String> removeGroup(String id) {
+        ClassTeacher group = container.getGroup(id);
+        if (group == null) {
+            return ResponseEntity.notFound().build();
+        }
         container.removeClass(id);
-        //classTeacherDao.delete(container.getGroups().get(id));
+        classTeacherDao.delete(group);
         classContainerDao.update(container);
-
         return ResponseEntity.ok("Grupa usunięta");
     }
 
@@ -121,13 +128,16 @@ public class TeacherService {
         return ResponseEntity.ok(result);
     }
 
-    /*public ResponseEntity<String> addRating(String groupId,
+    public ResponseEntity<String> addRating(String groupId,
                                             int rating) {
         ClassTeacher group = container.getGroups().get(groupId);
         if (group == null) {
             return ResponseEntity.notFound().build();
         }
+        Rate newRate = new Rate(rating, group);
         group.addRate(rating);
-        return ResponseEntity.ok("Ocena dodana");
-    }*/
+        rateDao.save(newRate);
+        classTeacherDao.update(group);
+        return new ResponseEntity<>("Ocena dodana", HttpStatus.CREATED);
+    }
 }
