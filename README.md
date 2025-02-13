@@ -68,6 +68,10 @@ mvn test
 - `DELETE /api/group/{name}` - Remove a group by name
 - `GET /api/group/{name}/teacher` - Get all teachers in a group
 - `GET /api/group/{name}/fill` - Get the fill percentage of a group
+  
+## Rate Endpoits
+
+- `POST /rating` - Add a new rating to group
 
 ## Project Structure
 
@@ -75,7 +79,9 @@ mvn test
 - `src/main/java/com/example/demo/model` - Entity classes
 - `src/main/java/com/example/demo/controller` - REST controllers
 - `src/main/java/com/example/demo/service` - Service classes
+- `src/main/java/com/example/demo/exception` - Exception handling classes
 - `src/test/java/com/example/demo` - Test classes
+
 
 ## License
 
