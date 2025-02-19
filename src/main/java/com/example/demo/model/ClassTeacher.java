@@ -23,7 +23,7 @@ public class ClassTeacher implements Serializable {
     @Column(nullable = false)
     private int maxTeachers;
 
-    @OneToMany(mappedBy = "classTeacher", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "classTeacher", fetch = FetchType.EAGER)
     private List<Rate> rates = new ArrayList<>();
 
     public ClassTeacher() {}

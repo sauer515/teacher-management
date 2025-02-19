@@ -41,6 +41,9 @@ public class TeacherService {
         this.container = dbContainer;
     }
 
+    public ResponseEntity<List<Teacher>> getAllTeachers() {
+        return ResponseEntity.ok(teacherDao.findAll());
+    }
 
     public ResponseEntity<String> addTeacher(Teacher teacher, String groupName) {
         ClassTeacher group = container.getGroups().get(groupName);
@@ -104,6 +107,12 @@ public class TeacherService {
         if (group == null) {
             return ResponseEntity.notFound().build();
         }
+        for (Teacher teacher : group.getTeachers()) {
+            teacherDao.delete(teacher);
+        }
+        for (Rate rate : rateDao.findByClassTeacherId(id)) {
+            rateDao.delete(rate);
+        }
         container.removeClass(id);
         classTeacherDao.delete(group);
         classContainerDao.update(container);
@@ -137,7 +146,7 @@ public class TeacherService {
         Rate newRate = new Rate(rating, group);
         group.addRate(rating);
         rateDao.save(newRate);
-        classTeacherDao.update(group);
         return new ResponseEntity<>("Ocena dodana", HttpStatus.CREATED);
     }
+
 }

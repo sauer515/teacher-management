@@ -9,12 +9,18 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TeacherController {
     private final TeacherService teacherService;
 
     @Autowired
     public TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;
+    }
+
+    @GetMapping("/teacher")
+    public ResponseEntity<List<Teacher>> getAllTeachers() {
+        return teacherService.getAllTeachers();
     }
 
     @PostMapping("/teacher")
