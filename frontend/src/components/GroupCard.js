@@ -1,12 +1,9 @@
 import React from 'react'
 
-const GroupCard = ({groupName, groupMaxNumber, groupCurrentNumber}) => {
+const GroupCard = ({groupName, onClick}) => {
   return (
-    <div className='group-card'>
+    <div className='group-card' onClick={onClick}>
         <h2 className='text-2xl font-bold'>{groupName}</h2>
-        <p className='text-lg'>Max Number: {groupMaxNumber}</p>
-        <p className='text-lg'>Current Number: {groupCurrentNumber}</p>
-        <p className='text-lg'>Available Seats: {groupMaxNumber - groupCurrentNumber}</p>
     </div>
   )
 }

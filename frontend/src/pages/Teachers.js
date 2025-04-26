@@ -23,7 +23,7 @@ function Teachers() {
         {error ? (
           <p>Error: {error.message}</p>
         ) : data.length > 0 ? (
-          <ul className="data-list"> 
+          <ul className="teacher-list"> 
             {data.map((teacher, index) => (
               <TeacherCard key={index} {...teacher} />
             ))}

@@ -51,8 +51,26 @@
   color: white;
 }
 
-.data-list {
+.teacher-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.data-list :hover {
+  background-color: #1f3f80;
+}
+
+.group-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 25rem;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #282c34;
+  border-radius: 5px;
+  background-color: #1d3650;
+  color: white;
 }
