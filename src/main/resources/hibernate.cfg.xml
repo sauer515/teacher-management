@@ -29,10 +29,10 @@
         <!-- Automatyczne tworzenie schematu bazy danych -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Mapowane klasy encji będą dodane później -->
         <mapping class="com.example.demo.model.Teacher"/>
         <mapping class="com.example.demo.model.ClassTeacher"/>
         <mapping class="com.example.demo.model.ClassContainer"/>
         <mapping class="com.example.demo.model.Rate"/>
+        <mapping class="com.example.demo.model.User"/>
     </session-factory>
 </hibernate-configuration>

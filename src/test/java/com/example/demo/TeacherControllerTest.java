@@ -1,16 +1,18 @@
 package com.example.demo;
 
+import com.example.demo.controller.TeacherController;
 import com.example.demo.model.ClassTeacher;
 import com.example.demo.model.Teacher;
 import com.example.demo.model.TeacherCondition;
+import com.example.demo.service.TeacherService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -29,7 +31,7 @@ public class TeacherControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private TeacherService teacherService;
 
     @Autowired
